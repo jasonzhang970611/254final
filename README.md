@@ -11,4 +11,4 @@ To run our project Linux system you need to install tkinter.
 
 Using Linix user- convert logo.ico to logo.xbm
 
-In setting.py change  ICONMAP = "logo.ico" to the  ICONMAP = "@/home/jason/Desktop/.../logo.xbm"
+In settings.py change  ICONMAP = "logo.ico" to the  ICONMAP = "@/home/jason/Desktop/.../logo.xbm"
