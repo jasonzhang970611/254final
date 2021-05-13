@@ -105,13 +105,13 @@ class Board:
         menubar.add_cascade(label="Game", menu=controller)
         menubar.add_cascade(label="Other", menu=other)
 
-        # TODO: New Game selection bar
+        
         controller.add_command(label="Undo step", command=self._undo)
         controller.add_command(label="Restart Game", command=self._restart)
         controller.add_separator()
         controller.add_command(label="Exit Game", command=self._exit)
 
-        # TODO: Add statistics
+        
         other.add_command(label="Statistics", command=lambda: msgbox.showinfo(
             "Step Count", "Game has been played for {0} steps.".format(len(self._pieces))
         ))
@@ -306,26 +306,7 @@ class Board:
                  options: Dict[Tuple[str, ...], Callable],
                  callbacks: Dict[bool, Callable]
         ) -> tkinter.Toplevel:
-        """
-        Draw a selection panel:
-        options is callback vectors, which options is key of Dict:
-        {
-            ("Local", "FreeStyle"): Callback,
-            ("Internet", "FreeStyle"): Callback,
-            ("AI", "FreeStyle"): Callback,
-            ...
-        },
-        which label assigned to layer index of options.keys():
-        [
-            "Game Type", "Rule"
-        ].
 
-        Callbacks:
-        {
-            True: Call if callback function return True
-            False: Call if callback function return False
-        }
-        """
         toplevel = tkinter.Toplevel(
             self._root, background=self.SELECT_PANEL_BGC)       
         toplevel.title(title)
