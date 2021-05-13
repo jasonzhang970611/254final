@@ -105,13 +105,11 @@ class Board:
         menubar.add_cascade(label="Game", menu=controller)
         menubar.add_cascade(label="Other", menu=other)
 
-        # TODO: New Game selection bar
         controller.add_command(label="Undo step", command=self._undo)
         controller.add_command(label="Restart Game", command=self._restart)
         controller.add_separator()
         controller.add_command(label="Exit Game", command=self._exit)
 
-        # TODO: Add statistics
         other.add_command(label="Statistics", command=lambda: msgbox.showinfo(
             "Step Count", "Game has been played for {0} steps.".format(len(self._pieces))
         ))
@@ -140,7 +138,7 @@ class Board:
     def _about() -> None:
         """Show about info"""
         msgbox.showinfo("About", (
-            "Gomoku, also called Five in a Row, is an abstract strategy board game. It is traditionally played with Go pieces (black and white stones) on a Go board. It can be played using the 15×15 board or the 19×19 board. Because pieces are typically not moved or removed from the board, gomoku may also be played as a paper-and-pencil game. The game is known in several countries under different names."
+            ""Gomoku, also called Five in a Row, is an abstract strategy board game. It is traditionally played with Go pieces (black and white stones) on a Go board. It can be played using the 15×15 board or the 19×19 board. Because pieces are typically not moved or removed from the board, gomoku may also be played as a paper-and-pencil game. The game is known in several countries under different names.""
         ))
 
     def win(self, who, pieces: Iterable[Tuple[int, int]]) -> None:
@@ -216,10 +214,10 @@ class Board:
         if msgbox.askyesno("Confirm", "Do you really want restart this game?"):
             self._board.destroy()
 
-            # Retstart 
-            handlers = self._restart_handler, self._click_handler
+            # Retstart handlers and board view
+            handlers = self._restart_handler, self._click_handler, self._undo_handler
             self.__init__(self._root, self._size, self._grids)
-            self._restart_handler, self._click_handler = handlers
+            self._restart_handler, self._click_handler, self._undo_handler = handlers
             self.draw()
 
             if not self._restart_handler is None:
@@ -269,6 +267,7 @@ class Board:
         """Undo canvas draw"""
         piece = self._pieces.get((row, column), None)
         if piece:
+            self._pieces.pop((row, column))
             self._board.delete(piece)
 
     def draw(self) -> None:
@@ -305,7 +304,7 @@ class Board:
     def selpanel(self, title: str, labels: Tuple[str, ...],
                  options: Dict[Tuple[str, ...], Callable],
                  callbacks: Dict[bool, Callable]
-        ) -> tkinter.Toplevel:
+        ) -> None:
         """
         Draw a selection panel:
         options is callback vectors, which options is key of Dict:
@@ -365,7 +364,6 @@ class Board:
 
         # Disable click when not selecting
         self._root.wait_window(toplevel)
-        return toplevel
 
 
 # Test game viewing
