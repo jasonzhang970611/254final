@@ -105,19 +105,13 @@ class Board:
         menubar.add_cascade(label="Game", menu=controller)
         menubar.add_cascade(label="Other", menu=other)
 
-<<<<<<< HEAD
-=======
-        
->>>>>>> 6133e93ad30cb77704f27ed96420c8e7aecedd10
+        # TODO: New Game selection bar
         controller.add_command(label="Undo step", command=self._undo)
         controller.add_command(label="Restart Game", command=self._restart)
         controller.add_separator()
         controller.add_command(label="Exit Game", command=self._exit)
 
-<<<<<<< HEAD
-=======
-        
->>>>>>> 6133e93ad30cb77704f27ed96420c8e7aecedd10
+        # TODO: Add statistics
         other.add_command(label="Statistics", command=lambda: msgbox.showinfo(
             "Step Count", "Game has been played for {0} steps.".format(len(self._pieces))
         ))
@@ -146,7 +140,7 @@ class Board:
     def _about() -> None:
         """Show about info"""
         msgbox.showinfo("About", (
-            ""Gomoku, also called Five in a Row, is an abstract strategy board game. It is traditionally played with Go pieces (black and white stones) on a Go board. It can be played using the 15×15 board or the 19×19 board. Because pieces are typically not moved or removed from the board, gomoku may also be played as a paper-and-pencil game. The game is known in several countries under different names.""
+            "Gomoku, also called Five in a Row, is an abstract strategy board game. It is traditionally played with Go pieces (black and white stones) on a Go board. It can be played using the 15×15 board or the 19×19 board. Because pieces are typically not moved or removed from the board, gomoku may also be played as a paper-and-pencil game. The game is known in several countries under different names."
         ))
 
     def win(self, who, pieces: Iterable[Tuple[int, int]]) -> None:
@@ -159,7 +153,8 @@ class Board:
             self._board.itemconfig(piece, fill=color)
 
         msgbox.showinfo("Congratulations",
-                        "{player} win!".format(player=str(who)))
+                        "{player} win!\nExiting game.".format(player=str(who)))
+        self._root.destroy()
 
     @property
     def click(self) -> Union[Callable[[int, int], None], None]:
@@ -312,7 +307,6 @@ class Board:
     def selpanel(self, title: str, labels: Tuple[str, ...],
                  options: Dict[Tuple[str, ...], Callable],
                  callbacks: Dict[bool, Callable]
-<<<<<<< HEAD
         ) -> None:
         """
         Draw a selection panel:
@@ -334,10 +328,6 @@ class Board:
             False: Call if callback function return False
         }
         """
-=======
-        ) -> tkinter.Toplevel:
-
->>>>>>> 6133e93ad30cb77704f27ed96420c8e7aecedd10
         toplevel = tkinter.Toplevel(
             self._root, background=self.SELECT_PANEL_BGC)       
         toplevel.title(title)
